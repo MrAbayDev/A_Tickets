@@ -1,0 +1,53 @@
+services:
+    nginx:
+        container_name: Neva_Tickets_nginx
+        image: nginx:alpine
+        ports:
+            - "8008:80"
+        volumes:
+            - ./:/var/www
+            - ./nginx.conf:/etc/nginx/conf.d/default.conf
+        depends_on:
+            - app
+        networks:
+            - laravel-network
+
+    app:
+        container_name: Neva_app
+        build: .
+        depends_on:
+            - db
+        volumes:
+            - ./:/var/www
+        networks:
+            - laravel-network
+    db:
+        container_name: Neva_Tickets_db
+        image: mysql:8
+        restart: always
+        ports:
+            - "3300:3306"
+        environment:
+            MYSQL_DATABASE: Neva_Tickets
+            MYSQL_ROOT_PASSWORD: root
+        volumes:
+            - Neva_Tickets_db:/var/lib/mysql
+        networks:
+            - laravel-network
+
+    Neva_Tickets_node:
+        container_name: Neva_Tickets_node
+        image: node:20
+        working_dir: /var/www
+        volumes:
+            - ./:/var/www
+        networks:
+            - laravel-network
+        command: bash -c "npm install && npm run dev"
+
+networks:
+    laravel-network:
+        driver: bridge
+
+volumes:
+    Neva_Tickets_db:
