@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Http\Controllers\WEB;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Models\TicketType;
 use Illuminate\Http\Request;
 
