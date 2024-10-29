@@ -9,4 +9,15 @@ class Ticket extends Model
 {
     /** @use HasFactory<\Database\Factories\TicketFactory> */
     use HasFactory;
+    protected $fillable = [
+        'ticket_type_id',
+    ];
+
+    /**
+     * Get the ticket type associated with the ticket.
+     */
+    public function ticketType(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(TicketType::class);
+    }
 }

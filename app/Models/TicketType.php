@@ -9,4 +9,10 @@ class TicketType extends Model
 {
     /** @use HasFactory<\Database\Factories\TicketTypeFactory> */
     use HasFactory;
+    protected $fillable = [
+        'adult_price',
+        'child_price',
+        'adult_count',
+        'child_count',
+    ];
 }
