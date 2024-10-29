@@ -11,7 +11,7 @@ class TicketController extends Controller
     public function index(): \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application
     {
         $tickets = Ticket::with('ticketType')->get();
-        return view('tickets.index', compact('tickets'));
+        return view('home', compact("tickets"));
     }
 
     public function create(): \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application

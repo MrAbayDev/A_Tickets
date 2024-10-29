@@ -5,19 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    public function index(): \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application
+    public function register(): \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application
     {
-        $users = User::all();
-        return view('users.index', compact('users'));
-    }
-
-    public function create(): \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application
-    {
-        return view('users.create');
+        return view('auth.register');
     }
 
     public function store(Request $request): RedirectResponse
@@ -33,30 +28,33 @@ class UserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
-
-        return redirect()->route('users.index')->with('success', 'User created successfully.');
+        return redirect()->route('login')->with('success', 'Ro\'yxatdan o\'tganingiz uchun rahmat. Kirish uchun login qiling.');
     }
 
-    public function edit(User $user): \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application
+    public function login(): \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application
     {
-        return view('users.edit', compact('user'));
+        return view('auth.login');
     }
 
-    public function update(Request $request, User $user): RedirectResponse
+    public function authenticate(Request $request): RedirectResponse
     {
         $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
+            'email' => 'required|email',
+            'password' => 'required',
         ]);
 
-        $user->update($request->only('name', 'email'));
+        if (Auth::attempt($request->only('email', 'password'))) {
+            return redirect()->route('home')->with('success', 'Tizimga kirishingiz mumkin.');
+        }
 
-        return redirect()->route('users.index')->with('success', 'User updated successfully.');
+        return back()->withErrors([
+            'email' => 'Email yoki parol noto\'g\'ri.',
+        ]);
     }
 
-    public function destroy(User $user): RedirectResponse
+    public function logout(): RedirectResponse
     {
-        $user->delete();
-        return redirect()->route('users.index')->with('success', 'User deleted successfully.');
+        Auth::logout();
+        return redirect()->route('login')->with('success', 'Tizimdan chiqdingiz.');
     }
 }

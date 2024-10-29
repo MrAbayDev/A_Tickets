@@ -22,7 +22,6 @@
         </thead>
         <tbody>
         @foreach($orders as $order)
-        @dd($orders)
             <tr>
                 <td>{{ $order->user_id }}</td>
                 <td>{{ $order->event_id }}</td>

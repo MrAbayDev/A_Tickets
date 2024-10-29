@@ -11,7 +11,7 @@ class EventController extends Controller
     public function index(): \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application
     {
         $events = Event::with('ticket')->get();
-        return view('events.index', compact('events'));
+        return view('home', compact('events'));
     }
 
     public function create(): \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application

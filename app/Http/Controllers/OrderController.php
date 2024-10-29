@@ -21,7 +21,7 @@ class OrderController extends Controller
         $users = User::all();
         $events = Event::all();
         $tickets = Ticket::all();
-        return view('orders.create', compact('users', 'events', 'tickets'));
+        return view('tickets.order-create', compact('users', 'events', 'tickets'));
     }
 
     public function store(Request $request): \Illuminate\Http\RedirectResponse
@@ -40,9 +40,9 @@ class OrderController extends Controller
 
         if ($response['message'] === 'order successfully booked') {
             $this->approveOrder($order->barcode);
-            return redirect()->route('orders.index')->with('success', 'Order created successfully.');
+            return redirect()->route('home')->with('success', 'Order created successfully.');
         } else {
-            return redirect()->route('orders.create')->with('error', $response['error']);
+            return redirect()->route('order.buy')->with('error', $response['error']);
         }
     }
 
