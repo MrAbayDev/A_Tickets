@@ -14,13 +14,13 @@
                         <p class="text-gray-600 mb-4">{{$event->schedule}}</p>
                         <div class="flex justify-between items-center">
                             <span class="text-blue-600 font-bold">от {{ $event->ticket->ticketType->child_price }} сум</span>
-                            @if(auth()->check()) <!-- Foydalanuvchi tizimda kirganligini tekshirish -->
+                            @if(auth()->check())
                             <a href="/order/buy" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
                                 Купить
                             </a>
                             @else
                                 <a href="/login" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
-                                    Kirish / Ro'yxatdan o'tish
+                                    Войти / Зарегистрироваться
                                 </a>
                             @endif
                         </div>
@@ -31,5 +31,4 @@
     </section>
 </main>
 <x-footer-layout/>
-</body>
-</html>
+
