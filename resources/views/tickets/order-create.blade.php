@@ -6,27 +6,19 @@
             @csrf
             <div class="mb-4">
                 <label for="name" class="block text-gray-700 font-bold mb-2">Ismingiz</label>
-                <input type="text" id="name" name="name" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Ismingizni kiriting">
+                <input type="text" id="name" name="name" value="{{ auth()->user()->name ?? '' }}" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Ismingizni kiriting" {{ auth()->check() ? 'readonly' : '' }}>
             </div>
             <div class="mb-4">
                 <label for="email" class="block text-gray-700 font-bold mb-2">Email</label>
-                <input type="email" id="email" name="email" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Email manzilingizni kiriting">
+                <input type="email" id="email" name="email" value="{{ auth()->user()->email ?? '' }}" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Email manzilingizni kiriting" {{ auth()->check() ? 'readonly' : '' }}>
             </div>
             <div class="mb-4">
                 <label for="adult-tickets" class="block text-gray-700 font-bold mb-2">Kattalar bileti soni</label>
-                <input type="number" id="adult-tickets" name="adult_tickets" min="0" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Sonini kiriting">
+                <input type="number" id="adult-tickets" name="adult_tickets" min="0" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Kattalar uchun biletlari sonini kiriting">
             </div>
             <div class="mb-4">
                 <label for="child-tickets" class="block text-gray-700 font-bold mb-2">Kichkinalar bileti soni</label>
-                <input type="number" id="child-tickets" name="child_tickets" min="0" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Sonini kiriting">
-            </div>
-            <div class="mb-4">
-                <label for="payment" class="block text-gray-700 font-bold mb-2">To‘lov usuli</label>
-                <select id="payment" name="payment" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                    <option value="">Tanlang</option>
-                    <option value="card">Bank karta</option>
-                    <option value="cash">Naqd pul</option>
-                </select>
+                <input type="number" id="child-tickets" name="child_tickets" min="0" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Kichkinalar uchun biletlari sonini kiriting">
             </div>
             <div class="flex justify-end">
                 <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
@@ -36,4 +28,5 @@
         </form>
     </section>
 </main>
+
 <x-footer-layout/>

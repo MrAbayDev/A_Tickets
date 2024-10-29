@@ -22,7 +22,6 @@ class UserController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
         ]);
-
         User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -30,7 +29,6 @@ class UserController extends Controller
         ]);
         return redirect()->route('login')->with('success', 'Ro\'yxatdan o\'tganingiz uchun rahmat. Kirish uchun login qiling.');
     }
-
     public function login(): \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application
     {
         return view('auth.login');

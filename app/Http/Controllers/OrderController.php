@@ -27,25 +27,31 @@ class OrderController extends Controller
     public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         $request->validate([
-            'user_id' => 'required|exists:users,id',
-            'event_id' => 'required|exists:events,id',
-            'ticket_id' => 'required|exists:tickets,id',
-            'barcode' => 'required|string|unique:orders,barcode',
-            'equal_price' => 'required|numeric',
+            'adult_tickets' => 'required|integer|min:0',
+            'child_tickets' => 'required|integer|min:0',
         ]);
 
-        $order = Order::create($request->all());
+        $barcode = uniqid();
+        $orderData = [
+            'user_id' => auth()->id(),
+            'event_id' => $request->event_id,
+            'adult_tickets' => $request->adult_tickets,
+            'child_tickets' => $request->child_tickets,
+            'barcode' => $barcode,
+            'equal_price' => $request->equal_price,
+        ];
+
+        $order = Order::create($orderData);
 
         $response = $this->bookOrder($order);
 
         if ($response['message'] === 'order successfully booked') {
-            $this->approveOrder($order->barcode);
-            return redirect()->route('home')->with('success', 'Order created successfully.');
+            $this->approveOrder($barcode);
+            return redirect()->route('home')->with('success', 'order successfully booked, Barcode: ' . $barcode);
         } else {
-            return redirect()->route('order.buy')->with('error', $response['error']);
+            return redirect()->route('order.buy')->with('error', $response['barcode already exists']);
         }
     }
-
     public function show(Order $order): \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application
     {
         return view('orders.show', compact('order'));

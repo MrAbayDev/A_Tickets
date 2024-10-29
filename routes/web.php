@@ -6,16 +6,16 @@ use App\Http\Controllers\TicketController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/register', function () {
-    return view('auth.register');
-});
-Route::post('/register', [UserController::class, 'register']);
 
-Route::get('/login', function () {
-    return view('auth.login');
-});
+Route::get('/register', [UserController::class, 'register'])->name('register');
 
-Route::post('/login', [UserController::class, 'login']);
+Route::post('/register', [UserController::class, 'store']);
+
+Route::get('/login', [UserController::class, 'login'])->name('login');
+
+Route::post('/login', [UserController::class, 'authenticate']);
+
+Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 
 Route::get('/', [EventController::class, 'index'])->name('home');
 
