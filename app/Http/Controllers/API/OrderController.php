@@ -15,7 +15,6 @@ class OrderController extends Controller
         return response()->json($orders);
     }
 
-    // Yangi order yaratish
     public function store(Request $request): JsonResponse
     {
         $request->validate([
@@ -30,13 +29,11 @@ class OrderController extends Controller
         return response()->json($order, 201);
     }
 
-    // Orderni olish
     public function show(Order $order): JsonResponse
     {
         return response()->json($order->load(['user', 'event', 'ticket']));
     }
 
-    // Orderni yangilash
     public function update(Request $request, Order $order): JsonResponse
     {
         $request->validate([
@@ -51,7 +48,6 @@ class OrderController extends Controller
         return response()->json($order);
     }
 
-    // Orderni o'chirish
     public function destroy(Order $order):JsonResponse
     {
         $order->delete();

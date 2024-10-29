@@ -17,9 +17,6 @@ class OrderController extends Controller
         return view('orders.index', compact('orders'));
     }
 
-    /**
-     * Show the form for creating a new order.
-     */
     public function create(): \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application
     {
         $users = User::all();
@@ -28,9 +25,6 @@ class OrderController extends Controller
         return view('orders.create', compact('users', 'events', 'tickets'));
     }
 
-    /**
-     * Store a newly created order in storage.
-     */
     public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         $request->validate([
@@ -46,17 +40,11 @@ class OrderController extends Controller
         return redirect()->route('orders.index')->with('success', 'Order created successfully.');
     }
 
-    /**
-     * Display the specified order.
-     */
     public function show(Order $order): \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application
     {
         return view('orders.show', compact('order'));
     }
 
-    /**
-     * Show the form for editing the specified order.
-     */
     public function edit(Order $order): \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application
     {
         $users = User::all();
@@ -65,9 +53,6 @@ class OrderController extends Controller
         return view('orders.edit', compact('order', 'users', 'events', 'tickets'));
     }
 
-    /**
-     * Update the specified order in storage.
-     */
     public function update(Request $request, Order $order): \Illuminate\Http\RedirectResponse
     {
         $request->validate([
@@ -83,9 +68,6 @@ class OrderController extends Controller
         return redirect()->route('orders.index')->with('success', 'Order updated successfully.');
     }
 
-    /**
-     * Remove the specified order from storage.
-     */
     public function destroy(Order $order): \Illuminate\Http\RedirectResponse
     {
         $order->delete();

@@ -9,18 +9,12 @@ use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 class TicketController extends Controller
 {
-    /**
-     * Display a listing of the tickets.
-     */
     public function index(): JsonResponse
     {
         $tickets = Ticket::with('ticketType')->get();
         return response()->json($tickets);
     }
 
-    /**
-     * Store a newly created ticket in storage.
-     */
     public function store(Request $request): JsonResponse
     {
         $request->validate([
@@ -32,20 +26,14 @@ class TicketController extends Controller
         return response()->json([
             'message' => 'Ticket created successfully.',
             'ticket' => $ticket,
-        ], 201); // 201 Created
+        ], 201);
     }
 
-    /**
-     * Display the specified ticket.
-     */
     public function show(Ticket $ticket): JsonResponse
     {
         return response()->json($ticket);
     }
 
-    /**
-     * Update the specified ticket in storage.
-     */
     public function update(Request $request, Ticket $ticket): JsonResponse
     {
         $request->validate([
@@ -60,9 +48,6 @@ class TicketController extends Controller
         ]);
     }
 
-    /**
-     * Remove the specified ticket from storage.
-     */
     public function destroy(Ticket $ticket): JsonResponse
     {
         $ticket->delete();
@@ -72,10 +57,6 @@ class TicketController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new ticket (if needed).
-     * This function is typically not used in APIs, but included for completeness.
-     */
     public function create(): JsonResponse
     {
         $ticketTypes = TicketType::all();

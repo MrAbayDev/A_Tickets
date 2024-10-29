@@ -1,11 +1,11 @@
 <?php
 
+use App\Http\Controllers\API\EventController;
 use App\Http\Controllers\API\OrderController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\WEB\EventController;
-use App\Http\Controllers\WEB\TicketController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\API\TicketController;
+use App\Http\Controllers\WEB\UserController;
 use Illuminate\Support\Facades\Route;
+
 Route::resource('/users', UserController::class);
 Route::resource('/tickets', TicketController::class);
 Route::resource('/orders', OrderController::class);

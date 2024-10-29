@@ -9,18 +9,12 @@ use Illuminate\Http\JsonResponse;
 
 class TicketTypeController extends Controller
 {
-    /**
-     * Display a listing of the ticket types.
-     */
     public function index(): JsonResponse
     {
         $ticketTypes = TicketType::all();
         return response()->json($ticketTypes);
     }
 
-    /**
-     * Store a newly created ticket type in storage.
-     */
     public function store(Request $request): JsonResponse
     {
         $request->validate([
@@ -35,20 +29,14 @@ class TicketTypeController extends Controller
         return response()->json([
             'message' => 'Ticket Type created successfully.',
             'ticket_type' => $ticketType,
-        ], 201); // 201 Created
+        ], 201);
     }
 
-    /**
-     * Display the specified ticket type.
-     */
     public function show(TicketType $ticketType): JsonResponse
     {
         return response()->json($ticketType);
     }
 
-    /**
-     * Update the specified ticket type in storage.
-     */
     public function update(Request $request, TicketType $ticketType): JsonResponse
     {
         $request->validate([
@@ -66,9 +54,6 @@ class TicketTypeController extends Controller
         ]);
     }
 
-    /**
-     * Remove the specified ticket type from storage.
-     */
     public function destroy(TicketType $ticketType): JsonResponse
     {
         $ticketType->delete();
@@ -78,13 +63,8 @@ class TicketTypeController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new ticket type (if needed).
-     * This function is typically not used in APIs, but included for completeness.
-     */
     public function create(): JsonResponse
     {
-        // This function is usually not needed in API context
         return response()->json(['message' => 'Use the store endpoint to create a ticket type.']);
     }
 }

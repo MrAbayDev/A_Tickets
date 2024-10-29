@@ -15,9 +15,6 @@ class EventController extends Controller
         return response()->json($events);
     }
 
-    /**
-     * Store a newly created event in storage.
-     */
     public function store(Request $request): JsonResponse
     {
         $request->validate([
@@ -32,20 +29,14 @@ class EventController extends Controller
         return response()->json([
             'message' => 'Event created successfully.',
             'event' => $event,
-        ], 201); // 201 Created
+        ], 201);
     }
 
-    /**
-     * Display the specified event.
-     */
     public function show(Event $event): JsonResponse
     {
         return response()->json($event);
     }
 
-    /**
-     * Update the specified event in storage.
-     */
     public function update(Request $request, Event $event): JsonResponse
     {
         $request->validate([
@@ -63,9 +54,6 @@ class EventController extends Controller
         ]);
     }
 
-    /**
-     * Remove the specified event from storage.
-     */
     public function destroy(Event $event): JsonResponse
     {
         $event->delete();

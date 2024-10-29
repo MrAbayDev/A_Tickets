@@ -17,17 +17,11 @@ class TicketTypeController extends Controller
         return view('ticket_types.index', compact('ticketTypes'));
     }
 
-    /**
-     * Show the form for creating a new ticket type.
-     */
     public function create()
     {
         return view('ticket_types.create');
     }
 
-    /**
-     * Store a newly created ticket type in storage.
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -42,26 +36,17 @@ class TicketTypeController extends Controller
         return redirect()->route('ticket_types.index')->with('success', 'Ticket Type created successfully.');
     }
 
-    /**
-     * Display the specified ticket type.
-     */
     public function show(TicketType $ticketType)
     {
         return view('ticket_types.show', compact('ticketType'));
     }
 
-    /**
-     * Show the form for editing the specified ticket type.
-     */
-    public function edit(TicketType $ticketType)
+    public function edit(TicketType $ticketType): \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application
     {
         return view('ticket_types.edit', compact('ticketType'));
     }
 
-    /**
-     * Update the specified ticket type in storage.
-     */
-    public function update(Request $request, TicketType $ticketType)
+    public function update(Request $request, TicketType $ticketType): \Illuminate\Http\RedirectResponse
     {
         $request->validate([
             'adult_price' => 'required|integer',
@@ -75,9 +60,6 @@ class TicketTypeController extends Controller
         return redirect()->route('ticket_types.index')->with('success', 'Ticket Type updated successfully.');
     }
 
-    /**
-     * Remove the specified ticket type from storage.
-     */
     public function destroy(TicketType $ticketType): \Illuminate\Http\RedirectResponse
     {
         $ticketType->delete();
