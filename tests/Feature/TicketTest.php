@@ -9,9 +9,6 @@ use Tests\TestCase;
 
 class TicketTest extends TestCase
 {
-    /**
-     * A basic feature test example.
-     */
     public function test_all_tickets_test_example(): void
     {
         $response = $this->get('/api/tickets');
